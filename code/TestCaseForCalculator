@@ -1,0 +1,55 @@
+# run command on terminal to go directory -> cd code
+# then run command -> pytest -s -v TestCaseForCalculator.py
+
+from appium import webdriver
+import pytest
+
+
+class TestCalculator:
+
+    def setup(self):
+        self.desired_cap = {
+            "platformName": "Android",
+            "deviceName": "emulator-5554",
+            "app": "/home/istiaque/Documents/Calculator_v7.apk",
+            "appPackage": "com.google.android.calculator",
+            "appActivity": "com.android.calculator2.Calculator"
+        }
+
+        self.driver = webdriver.Remote("http://localhost:4723/wd/hub", self.desired_cap)
+
+    def test_addition(self):
+        self.driver.find_element_by_id("com.google.android.calculator:id/digit_1").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/op_add").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/digit_2").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/eq").click()
+
+        out_r = self.driver.find_element_by_id("com.google.android.calculator:id/result_final").text
+        assert out_r == "3"
+
+    def test_subtraction(self):
+        self.driver.find_element_by_id("com.google.android.calculator:id/digit_5").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/op_sub").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/digit_2").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/eq").click()
+
+        out_r = self.driver.find_element_by_id("com.google.android.calculator:id/result_final").text
+        assert out_r == "3"
+
+    def test_multiplication(self):
+        self.driver.find_element_by_id("com.google.android.calculator:id/digit_3").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/op_mul").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/digit_2").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/eq").click()
+
+        out_r = self.driver.find_element_by_id("com.google.android.calculator:id/result_final").text
+        assert out_r == "6"
+
+    def test_division(self):
+        self.driver.find_element_by_id("com.google.android.calculator:id/digit_8").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/op_div").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/digit_2").click()
+        self.driver.find_element_by_id("com.google.android.calculator:id/eq").click()
+
+        out_r = self.driver.find_element_by_id("com.google.android.calculator:id/result_final").text
+        assert out_r == "4"
